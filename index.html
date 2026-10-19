@@ -1822,6 +1822,31 @@
       requestAnimationFrame(animate);
     }
   })();
+
+
+
+  window.addEventListener('load', () => {
+  setTimeout(() => {
+    // Select all iframes on the page
+    const iframes = document.querySelectorAll('iframe');
+
+    iframes.forEach((iframe) => {
+      const src = iframe.getAttribute('src') || '';
+      const title = iframe.getAttribute('title') || '';
+
+      // Target Netlify badge by common attributes (src or title)
+      if (src.includes('netlify') || title.toLowerCase().includes('netlify')) {
+        iframe.style.display = 'none';
+      }
+    });
+
+    // Fallback: Check shadow DOM or specific Netlify badge host containers if present
+    const badgeContainer = document.querySelector('div#netlify-badge, .netlify-badge');
+    if (badgeContainer) {
+      badgeContainer.style.display = 'none';
+    }
+  }, 2000);
+});
   </script>
 </body>
 </html>
